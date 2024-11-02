@@ -1,0 +1,30 @@
+{
+  "students": [
+    {
+      "name": "Mardonbek",
+      "age": "22",
+      "email": "mardon@gmail.com",
+      "address": "The HIVE",
+      "courses": [
+        "Maths",
+        "Science"
+      ],
+      "isStudent": true,
+      "id": "c1ba"
+    }
+  ],
+  "teachers": [
+    {
+      "name": "Mardonbek",
+      "age": "21",
+      "email": "mardon@gmail.com",
+      "address": "The HIVE",
+      "subjects": [
+        "English",
+        "Geography"
+      ],
+      "isTeacher": true,
+      "id": "cb34"
+    }
+  ]
+}

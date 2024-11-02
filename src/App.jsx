@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import Navbar from "./components/Navbar/Navbar";
+import Routers from "./routes/Routers";
+import LoginRoutes from "./routes/LoginRoutes";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const navigate = useNavigate();
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+  const { data: token } = useQuery({
+    queryKey: ["token"],
+    queryFn: async () => {
+      const token = localStorage.getItem("token");
+      return token;
+    },
+  });
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token, navigate]);
+
+  return token ? (
+    <div className="py-6 px-8 flex items-start h-screen">
+      <Navbar />
+      <div className="px-[72px] w-full h-full">
+        <Routers />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  ) : (
+    <LoginRoutes />
+  );
 }
 
-export default App
+export default App;
